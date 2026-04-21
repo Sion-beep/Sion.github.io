@@ -1,99 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym-N-Junk | Burn it. Earn it.</title>
+    <title>Gym-N-Junk | Fit & Fat Premium</title>
     <style>
+        /* 기본 스타일 및 테마 컬러 (네온 그린 & 블랙) */
         :root {
-            --primary-yellow: #ffcc00;
-            --dark-bg: #1a1a1a;
-            --accent-red: #ff4d4d;
+            --primary: #adff2f; /* 네온 그린 - 헬스장 느낌 */
+            --secondary: #ff4757; /* 패스트푸드 느낌 */
+            --dark: #1e1e1e;
+            --white: #ffffff;
         }
+
         body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--dark);
+            color: var(--white);
             margin: 0;
-            font-family: 'Arial Black', sans-serif;
-            background-color: var(--dark-bg);
-            color: white;
-            text-align: center;
-        }
-        .hero {
-            padding: 50px 20px;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80');
-            background-size: cover;
-            border-bottom: 5px solid var(--primary-yellow);
-        }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            color: var(--primary-yellow);
-            text-transform: uppercase;
-        }
-        .tagline {
-            font-size: 1.2rem;
-            font-style: italic;
-            margin-bottom: 30px;
-        }
-        .cta-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background-color: var(--accent-red);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(255, 77, 77, 0.4);
-        }
-        .features {
+            padding: 0;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            padding: 40px 20px;
+            align-items: center;
         }
-        .feature-card {
-            background: #2a2a2a;
+
+        header {
+            background: linear-gradient(135deg, var(--dark), #333);
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
+        .logo span { color: var(--primary); }
+        .logo i { color: var(--secondary); font-style: normal; }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px 0;
+        }
+
+        /* 멤버십 카드 */
+        .membership-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .status-badge {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* QR 섹션 */
+        .qr-section {
+            background: var(--white);
             padding: 20px;
             border-radius: 15px;
-            border-left: 5px solid var(--primary-yellow);
+            margin-top: 20px;
+            text-align: center;
         }
-        .feature-card h3 {
-            margin-top: 0;
-            color: var(--primary-yellow);
+
+        .qr-section p { color: var(--dark); font-weight: bold; margin-bottom: 10px; }
+        #qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: #eee;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
         }
-        footer {
-            padding: 30px;
-            font-size: 0.8rem;
-            opacity: 0.6;
+
+        /* 메뉴 리스트 */
+        .menu-list {
+            margin-top: 30px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .menu-info h4 { margin: 0; color: var(--primary); }
+        .menu-info p { margin: 5px 0 0; font-size: 12px; opacity: 0.7; }
+
+        .order-btn {
+            background: var(--secondary);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* 시나리오 반영: 치트데이 알림 */
+        .notice {
+            background: rgba(255, 71, 87, 0.2);
+            border-left: 4px solid var(--secondary);
+            padding: 10px;
+            font-size: 13px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <section class="hero">
-        <h1>GYM-N-JUNK</h1>
-        <p class="tagline">"Because 6-packs are temporary, but Nuggets are forever."</p>
-        <a href="#" class="cta-button">SCAN TO UNLOCK BURGER</a>
-    </section>
+<header>
+    <div class="logo">FIT <span>&</span> FAT <i>PREMIUM</i></div>
+</header>
 
-    <section class="features">
-        <div class="feature-card">
-            <h3>🔥 1. Burn to Earn</h3>
-            <p>Our QR sensors sync with your treadmill. 300 calories burned = 1 Cheeseburger unlocked.</p>
-        </div>
-        <div class="feature-card">
-            <h3>🍔 2. Instant Recovery</h3>
-            <p>Your meal is prepared the moment you hit your cardio goal. Pickup at the front desk!</p>
-        </div>
-        <div class="feature-card">
-            <h3>📈 3. Dirty Bulk Mode</h3>
-            <p>Unlimited fast food access for those who prioritize MASS over everything else.</p>
-        </div>
-    </section>
+<div class="container">
+    <div class="membership-card">
+        <span class="status-badge">Premium Member</span>
+        <h3>시온 님, 환영합니다!</h3>
+        <p>나의 남은 치트데이 권한: <strong>2회</strong></p>
+    </div>
 
-    <footer>
-        &copy; 2026 Gym-N-Junk Co. | No Regrets. Just Gains.
-    </footer>
+    <div class="qr-section">
+        <p>주문용 QR 코드</p>
+        <div id="qr-placeholder">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://github.com/Sion-beep" alt="QR Code" style="width:100%;">
+        </div>
+        <p style="font-size: 12px; color: #666; margin-top: 10px;">카운터에 제시하거나 키오스크에 스캔하세요.</p>
+    </div>
+
+    <div class="notice">
+        ⚠️ <strong>협의 사항 준수:</strong> PT 회원님은 트레이너 승인 하에만 주문이 가능합니다. (6개월 파일럿 프로그램 적용 중)
+    </div>
+
+    <div class="menu-list">
+        <h3>오늘의 추천 메뉴</h3>
+        
+        <div class="menu-item">
+            <div class="menu-info">
+                <h4>머슬 버거 세트</h4>
+                <p>고단백 패티 + 통밀 번 (550kcal)</p>
+            </div>
+            <button class="order-btn">주문</button>
+        </div>
+
+        <div class="menu-item">
+            <div class="menu-info">
+                <h4>치트데이 페퍼로니 피자</h4>
+                <p>1인용 슬라이스 (420kcal)</p>
+            </div>
+            <button class="order-btn">주문</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 버튼 클릭 시 간단한 인터랙션
+    const buttons = document.querySelectorAll('.order-btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            alert('치트데이 1회가 차감됩니다. 맛있게 드시고 내일은 오운완 하세요!');
+        });
+    });
+</script>
 
 </body>
 </html>
