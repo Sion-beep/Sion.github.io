@@ -3,182 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym-N-Junk | Fit & Fat Premium</title>
+    <title>UNLIMITED FASTFOOD MENU</title>
     <style>
-        /* 기본 스타일 및 테마 컬러 (네온 그린 & 블랙) */
-        :root {
-            --primary: #adff2f; /* 네온 그린 - 헬스장 느낌 */
-            --secondary: #ff4757; /* 패스트푸드 느낌 */
-            --dark: #1e1e1e;
-            --white: #ffffff;
-        }
-
+        /* 기본 스타일 및 모바일 최적화 */
         body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: var(--dark);
-            color: var(--white);
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background-color: #1a1a1a; /* 다크 모드 배경 */
+            color: #ffffff;
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
         }
 
-        header {
-            background: linear-gradient(135deg, var(--dark), #333);
-            width: 100%;
-            padding: 20px;
+        /* 헤더 섹션 */
+        .header {
+            background-color: #e63946; /* 강렬한 레드 */
+            padding: 40px 20px;
             text-align: center;
-            border-bottom: 3px solid var(--primary);
+            border-bottom: 6px solid #ffb703;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
             letter-spacing: -1px;
+            text-transform: uppercase;
         }
 
-        .logo span { color: var(--primary); }
-        .logo i { color: var(--secondary); font-style: normal; }
+        .header p {
+            margin: 5px 0 0;
+            font-size: 1rem;
+            color: #ffb703;
+            font-weight: bold;
+        }
 
+        /* 컨테이너 */
         .container {
-            width: 90%;
-            max-width: 400px;
-            padding: 20px 0;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        /* 멤버십 카드 */
-        .membership-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        /* 무한리필 배지 */
+        .badge {
+            display: inline-block;
+            background: #ffb703;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.8rem;
             margin-bottom: 20px;
         }
 
-        .status-badge {
-            background: var(--primary);
-            color: var(--dark);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 14px;
+        /* 섹션 제목 */
+        .section-title {
+            font-size: 1.4rem;
+            color: #ffb703;
+            margin: 30px 0 15px;
+            border-left: 4px solid #e63946;
+            padding-left: 12px;
+            text-transform: uppercase;
         }
 
-        /* QR 섹션 */
-        .qr-section {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .qr-section p { color: var(--dark); font-weight: bold; margin-bottom: 10px; }
-        #qr-placeholder {
-            width: 200px;
-            height: 200px;
-            background: #eee;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-        }
-
-        /* 메뉴 리스트 */
-        .menu-list {
-            margin-top: 30px;
-        }
-
+        /* 메뉴 아이템 카드 */
         .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             background: #2a2a2a;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 12px;
+            border: 1px solid #333;
+            transition: transform 0.2s;
         }
 
-        .menu-info h4 { margin: 0; color: var(--primary); }
-        .menu-info p { margin: 5px 0 0; font-size: 12px; opacity: 0.7; }
+        .menu-item:active {
+            transform: scale(0.98); /* 터치 시 눌리는 효과 */
+        }
 
+        .menu-item h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .menu-item p {
+            margin: 8px 0 0;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* 푸터 */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #111;
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .footer b {
+            color: #e63946;
+        }
+
+        /* 하단 고정 주문 버튼 (모바일용) */
         .order-btn {
-            background: var(--secondary);
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* 시나리오 반영: 치트데이 알림 */
-        .notice {
-            background: rgba(255, 71, 87, 0.2);
-            border-left: 4px solid var(--secondary);
-            padding: 10px;
-            font-size: 13px;
-            margin-top: 20px;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffb703;
+            color: #000;
+            padding: 15px 50px;
+            border-radius: 30px;
+            font-weight: 900;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            width: 80%;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">FIT <span>&</span> FAT <i>PREMIUM</i></div>
-</header>
-
-<div class="container">
-    <div class="membership-card">
-        <span class="status-badge">Premium Member</span>
-        <h3>시온 님, 환영합니다!</h3>
-        <p>나의 남은 치트데이 권한: <strong>2회</strong></p>
+    <div class="header">
+        <h1>UNLIMITED FASTFOOD</h1>
+        <p>패스트푸드 무한 리필 천국</p>
     </div>
 
-    <div class="qr-section">
-        <p>주문용 QR 코드</p>
-        <div id="qr-placeholder">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://github.com/Sion-beep" alt="QR Code" style="width:100%;">
-        </div>
-        <p style="font-size: 12px; color: #666; margin-top: 10px;">카운터에 제시하거나 키오스크에 스캔하세요.</p>
-    </div>
+    <div class="container">
+        <div class="badge">ALL YOU CAN EAT</div>
 
-    <div class="notice">
-        ⚠️ <strong>협의 사항 준수:</strong> PT 회원님은 트레이너 승인 하에만 주문이 가능합니다. (6개월 파일럿 프로그램 적용 중)
-    </div>
-
-    <div class="menu-list">
-        <h3>오늘의 추천 메뉴</h3>
-        
+        <div class="section-title">Burgers</div>
         <div class="menu-item">
-            <div class="menu-info">
-                <h4>머슬 버거 세트</h4>
-                <p>고단백 패티 + 통밀 번 (550kcal)</p>
-            </div>
-            <button class="order-btn">주문</button>
+            <h3>더블 비프 치즈 버거</h3>
+            <p>직화로 구운 순쇠고기 패티 2장과 진한 체다 치즈의 만남</p>
         </div>
-
         <div class="menu-item">
-            <div class="menu-info">
-                <h4>치트데이 페퍼로니 피자</h4>
-                <p>1인용 슬라이스 (420kcal)</p>
-            </div>
-            <button class="order-btn">주문</button>
+            <h3>베이컨 스모키 BBQ 버거</h3>
+            <p>훈제 베이컨과 특제 바베큐 소스가 어우러진 깊은 풍미</p>
         </div>
-    </div>
-</div>
+        <div class="menu-item">
+            <h3>크리스피 핫 치킨 버거</h3>
+            <p>매콤한 시즈닝의 통닭다리살 패티와 아삭한 코울슬로</p>
+        </div>
+        <div class="menu-item">
+            <h3>트러플 머쉬룸 와퍼</h3>
+            <p>고급스러운 트러플 오일 향과 구운 버섯의 환상 조화</p>
+        </div>
 
-<script>
-    // 버튼 클릭 시 간단한 인터랙션
-    const buttons = document.querySelectorAll('.order-btn');
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            alert('치트데이 1회가 차감됩니다. 맛있게 드시고 내일은 오운완 하세요!');
-        });
-    });
-</script>
+        <div class="section-title">Chicken & Sides</div>
+        <div class="menu-item">
+            <h3>오리지널 프라이드 치킨</h3>
+            <p>전통 비법 파우더로 튀겨낸 겉바속촉의 정석</p>
+        </div>
+        <div class="menu-item">
+            <h3>케이준 양념 감자튀김</h3>
+            <p>멈출 수 없는 중독성, 짭짤한 케이준 시즈닝 감자</p>
+        </div>
+        <div class="menu-item">
+            <h3>모짜렐라 치즈볼</h3>
+            <p>달콤한 반죽 속에 꽉 찬 고소한 모짜렐라 치즈</p>
+        </div>
+
+        <div class="section-title">Beverages</div>
+        <div class="menu-item">
+            <h3>리얼 바닐라 빈 쉐이크</h3>
+            <p>천연 바닐라 빈이 콕콕 박힌 진하고 부드러운 맛</p>
+        </div>
+        <div class="menu-item">
+            <h3>무한 탄산 음료 바</h3>
+            <p>콜라, 사이다, 제로 시리즈까지 원하는 만큼 자유롭게</p>
+        </div>
+
+        <div style="height: 80px;"></div> </div>
+
+    <a href="#" class="order-btn">지금 바로 주문하기</a>
+
+    <div class="footer">
+        <p>※ 모든 메뉴는 <b>무제한</b>으로 제공됩니다.</p>
+        <p>© Unlimited Fastfood Paradise. All Rights Reserved.</p>
+    </div>
 
 </body>
 </html>
