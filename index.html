@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INFINITE KIOSK v2.0</title>
+    <title>INFINITE KIOSK v3.0</title>
     <style>
         :root {
             --primary-red: #d90429;
@@ -17,199 +17,220 @@
             background-color: var(--bg-black);
             color: #fff;
             font-family: 'Segoe UI', sans-serif;
-            padding-bottom: 120px; /* Space for fixed cart bar */
+            padding-bottom: 120px;
+            scroll-behavior: smooth; /* 부드러운 스크롤 */
         }
 
         /* Header */
         .header {
             background: var(--primary-red);
-            padding: 25px;
+            padding: 20px;
             text-align: center;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
+        .header h1 { margin: 0; font-size: 1.3rem; text-transform: uppercase; }
 
-        /* Category Scroll */
-        .categories {
+        /* Navigation Bar */
+        .nav-bar {
             display: flex;
             overflow-x: auto;
             background: #111;
-            padding: 10px;
+            padding: 12px;
             gap: 10px;
-            white-space: nowrap;
+            position: sticky;
+            top: 65px; /* 헤더 바로 아래 고정 */
+            z-index: 999;
+            border-bottom: 1px solid #333;
         }
 
-        .cat-btn {
-            background: none;
-            border: 1px solid #444;
-            color: #ccc;
-            padding: 8px 15px;
+        .nav-bar a {
+            text-decoration: none;
+            background: #252525;
+            color: #aaa;
+            padding: 8px 18px;
             border-radius: 20px;
             font-size: 0.85rem;
+            white-space: nowrap;
+            border: 1px solid #444;
         }
 
-        .cat-btn.active {
-            background: var(--accent-yellow);
-            color: #000;
-            border-color: var(--accent-yellow);
-        }
+        .nav-bar a:active { background: var(--accent-yellow); color: #000; }
 
-        /* Menu Grid */
+        /* Menu Section */
         .container { padding: 15px; }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--accent-yellow);
+            margin: 30px 0 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--primary-red);
+        }
 
         .menu-card {
             background: var(--card-bg);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border: 1px solid #333;
         }
 
-        .info h3 { margin: 0; font-size: 1.1rem; }
-        .info p { margin: 5px 0 0; font-size: 0.8rem; color: #999; }
+        .info { flex: 1; padding-right: 15px; }
+        .info h3 { margin: 0; font-size: 1rem; color: #fff; }
+        .info p { margin: 5px 0 0; font-size: 0.8rem; color: #999; line-height: 1.3; }
         
         .add-btn {
             background: var(--primary-red);
             color: white;
             border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.5rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
         }
 
-        .add-btn:active { transform: scale(0.9); }
-
-        /* Floating Cart Bar */
+        /* Cart & Overlay (Same as v2.0) */
         .cart-bar {
             position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: #1a1a1a;
-            padding: 20px;
-            box-sizing: border-box;
+            bottom: 0; width: 100%; background: #1a1a1a;
+            padding: 20px; box-sizing: border-box;
             border-top: 2px solid var(--accent-yellow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1001;
         }
-
-        .cart-info { font-weight: bold; }
-        .cart-info span { color: var(--accent-yellow); font-size: 1.2rem; }
 
         .order-submit {
-            background: var(--accent-yellow);
-            color: #000;
-            padding: 12px 30px;
-            border-radius: 10px;
-            font-weight: 900;
-            border: none;
-            font-size: 1rem;
+            background: var(--accent-yellow); color: #000;
+            padding: 12px 25px; border-radius: 8px;
+            font-weight: 900; border: none;
         }
 
-        /* Order Animation Overlay */
         #overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000;
+            justify-content: center; align-items: center; text-align: center;
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>INFINITE KIOSK</h1>
-        <p style="margin:0; font-size: 0.8rem; color: #ffb703;">ALL-YOU-CAN-ORDER</p>
+        <h1>INFINITE FAST FOOD</h1>
     </div>
 
-    <div class="categories">
-        <button class="cat-btn active">Burgers</button>
-        <button class="cat-btn">Sides</button>
-        <button class="cat-btn">Pizza</button>
-        <button class="cat-btn">Drinks</button>
+    <div class="nav-bar">
+        <a href="#burgers">Burgers</a>
+        <a href="#sides">Sides</a>
+        <a href="#pizza">Pizza</a>
+        <a href="#drinks">Drinks</a>
     </div>
 
-    <div class="container" id="menu-list">
-        </div>
+    <div class="container" id="kiosk-body">
+        
+        <div id="burgers" class="section-title">Master Burgers</div>
+        <div id="burger-list"></div>
+
+        <div id="sides" class="section-title">Infinite Sides</div>
+        <div id="sides-list"></div>
+
+        <div id="pizza" class="section-title">Cheesy Pizzas</div>
+        <div id="pizza-list"></div>
+
+        <div id="drinks" class="section-title">Cold Drinks</div>
+        <div id="drinks-list"></div>
+
+    </div>
 
     <div class="cart-bar">
-        <div class="cart-info">
-            Items: <span id="item-count">0</span><br>
-            Total: <span id="total-price">$0.00</span>
-        </div>
+        <div>Items: <span id="item-count" style="color:var(--accent-yellow); font-weight:bold;">0</span></div>
         <button class="order-submit" onclick="submitOrder()">PLACE ORDER</button>
     </div>
 
     <div id="overlay">
         <div>
-            <h1 style="color: var(--accent-yellow);">ORDER PLACED!</h1>
-            <p>Your infinite feast is being prepared...</p>
-            <button onclick="closeOverlay()" style="background:none; border: 1px solid #fff; color:#fff; padding:10px 20px; border-radius:5px;">Close</button>
+            <h1 style="color: var(--accent-yellow);">ORDER RECEIVED!</h1>
+            <p>Your unlimited feast is coming right now.</p>
+            <button onclick="closeOverlay()" style="background:none; border: 1px solid #fff; color:#fff; padding:10px 20px; border-radius:5px; margin-top:20px;">Order More</button>
         </div>
     </div>
 
     <script>
-        const menuItems = [
-            { name: "Double Beef Smash", desc: "Two beefy patties & cheese", price: 0 },
-            { name: "Spicy Nashville Chicken", desc: "Nashville hot glaze & slaw", price: 0 },
-            { name: "Bacon Smokehouse King", desc: "Thick bacon & BBQ sauce", price: 0 },
-            { name: "Cajun Dynamite Fries", desc: "Spicy Cajun spice blend", price: 0 },
-            { name: "Mozzarella Volcano", desc: "Molten cheese center balls", price: 0 },
-            { name: "Ultimate Pepperoni", desc: "Triple layered pepperoni", price: 0 },
-            { name: "Real Vanilla Shake", desc: "Premium vanilla bean shake", price: 0 }
-        ];
+        const menuData = {
+            burgers: [
+                { name: "Double Beef Smash", desc: "Two beef patties & melted cheddar" },
+                { name: "Nashville Hot Chicken", desc: "Spicy glaze with vinegar slaw" },
+                { name: "Bacon Smokehouse", desc: "Applewood bacon & BBQ sauce" },
+                { name: "Truffle Mushroom", desc: "Sautéed mushrooms & truffle oil" }
+            ],
+            sides: [
+                { name: "Cajun Fire Fries", desc: "Extra spicy cajun seasoning" },
+                { name: "Cheese Lava Tots", desc: "Tater tots with warm liquid cheese" },
+                { name: "Mozzarella Volcano", desc: "Molten cheese balls (6pcs)" },
+                { name: "Garlic Butter Rings", desc: "Huge onion rings with garlic dip" },
+                { name: "Creamy Corn Slaw", desc: "Sweet and tangy side salad" }
+            ],
+            pizza: [
+                { name: "Pepperoni Overload", desc: "Triple layered spicy pepperoni" },
+                { name: "Five Cheese Melt", desc: "Mozzarella, Cheddar, Gouda, Brie, Parm" },
+                { name: "Hawaiian Punch", desc: "Grilled pineapple and honey ham" },
+                { name: "Meat Lovers Special", desc: "Beef, Bacon, Sausage, and Salami" }
+            ],
+            drinks: [
+                { name: "Vanilla Bean Shake", desc: "Thick premium vanilla ice cream" },
+                { name: "Fudge Brownie Shake", desc: "Chocolate overload with brownie bits" },
+                { name: "Endless Soda Fountain", desc: "Free refills on all soda flavors" },
+                { name: "Iced Peach Tea", desc: "Freshly brewed with real peach syrup" },
+                { name: "Classic Lemonade", desc: "Tart and sweet with fresh lemons" }
+            ]
+        };
 
-        let count = 0;
+        let cartCount = 0;
 
-        function renderMenu() {
-            const list = document.getElementById('menu-list');
-            list.innerHTML = menuItems.map(item => `
+        function createCard(item) {
+            return `
                 <div class="menu-card">
                     <div class="info">
                         <h3>${item.name}</h3>
                         <p>${item.desc}</p>
                     </div>
-                    <button class="add-btn" onclick="addToCart()">+</button>
+                    <button class="add-btn" onclick="updateCart()">+</button>
                 </div>
-            `).join('');
+            `;
         }
 
-        function addToCart() {
-            count++;
-            document.getElementById('item-count').innerText = count;
-            // Total price stays $0 because it's unlimited!
+        function renderAll() {
+            document.getElementById('burger-list').innerHTML = menuData.burgers.map(createCard).join('');
+            document.getElementById('sides-list').innerHTML = menuData.sides.map(createCard).join('');
+            document.getElementById('pizza-list').innerHTML = menuData.pizza.map(createCard).join('');
+            document.getElementById('drinks-list').innerHTML = menuData.drinks.map(createCard).join('');
+        }
+
+        function updateCart() {
+            cartCount++;
+            document.getElementById('item-count').innerText = cartCount;
         }
 
         function submitOrder() {
-            if(count === 0) {
-                alert("Please add at least one item!");
-                return;
-            }
+            if(cartCount === 0) return alert("Select your food first!");
             document.getElementById('overlay').style.display = 'flex';
         }
 
         function closeOverlay() {
             document.getElementById('overlay').style.display = 'none';
-            count = 0;
-            document.getElementById('item-count').innerText = count;
+            cartCount = 0;
+            document.getElementById('item-count').innerText = "0";
         }
 
-        renderMenu();
+        renderAll();
     </script>
 </body>
 </html>
