@@ -3,245 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNLIMITED FAST FOOD PARADISE</title>
+    <title>INFINITE KIOSK v2.0</title>
     <style>
-        /* Base Styling & Mobile Optimization */
+        :root {
+            --primary-red: #d90429;
+            --accent-yellow: #ffb703;
+            --bg-black: #0f0f0f;
+            --card-bg: #1e1e1e;
+        }
+
         body {
             margin: 0;
-            padding: 0;
-            background-color: #0f0f0f; /* Deep Black Background */
-            color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.5;
+            background-color: var(--bg-black);
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            padding-bottom: 120px; /* Space for fixed cart bar */
         }
 
-        /* Sticky Header */
+        /* Header */
         .header {
-            background-color: #d90429; /* Intense Red */
-            padding: 30px 20px;
+            background: var(--primary-red);
+            padding: 25px;
             text-align: center;
-            border-bottom: 5px solid #ffb703;
             position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 1.6rem;
-            letter-spacing: 2px;
-            font-weight: 900;
+        .header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
+
+        /* Category Scroll */
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            background: #111;
+            padding: 10px;
+            gap: 10px;
+            white-space: nowrap;
         }
 
-        .header p {
-            margin: 5px 0 0;
-            font-size: 0.9rem;
-            color: #ffb703;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        /* Content Container */
-        .container {
-            padding: 20px;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .unlimited-badge {
-            display: inline-block;
-            background: #ffb703;
-            color: #000;
-            padding: 5px 15px;
-            border-radius: 5px;
-            font-weight: 800;
-            font-size: 0.75rem;
-            margin-bottom: 25px;
-        }
-
-        /* Section Titles */
-        .section-title {
-            font-size: 1.3rem;
-            color: #ffb703;
-            margin: 35px 0 15px;
-            border-left: 5px solid #d90429;
-            padding-left: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Menu Item Cards */
-        .menu-item {
-            background: #1e1e1e;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border: 1px solid #333;
-            transition: all 0.2s ease;
-        }
-
-        .menu-item:active {
-            transform: scale(0.97);
-            background: #252525;
-        }
-
-        .menu-item h3 {
-            margin: 0;
-            font-size: 1.05rem;
-            color: #ffffff;
-        }
-
-        .menu-item p {
-            margin: 6px 0 0;
+        .cat-btn {
+            background: none;
+            border: 1px solid #444;
+            color: #ccc;
+            padding: 8px 15px;
+            border-radius: 20px;
             font-size: 0.85rem;
-            color: #b0b0b0;
         }
 
-        .price-tag {
-            color: #ffb703;
+        .cat-btn.active {
+            background: var(--accent-yellow);
+            color: #000;
+            border-color: var(--accent-yellow);
+        }
+
+        /* Menu Grid */
+        .container { padding: 15px; }
+
+        .menu-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #333;
+        }
+
+        .info h3 { margin: 0; font-size: 1.1rem; }
+        .info p { margin: 5px 0 0; font-size: 0.8rem; color: #999; }
+        
+        .add-btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
             font-weight: bold;
-            font-size: 0.8rem;
-            margin-top: 5px;
-            display: block;
+            cursor: pointer;
         }
 
-        /* Fixed Order Button */
-        .order-bar {
+        .add-btn:active { transform: scale(0.9); }
+
+        /* Floating Cart Bar */
+        .cart-bar {
             position: fixed;
             bottom: 0;
-            left: 0;
             width: 100%;
-            background: rgba(15, 15, 15, 0.9);
-            padding: 15px 0;
-            text-align: center;
-            backdrop-filter: blur(10px);
+            background: #1a1a1a;
+            padding: 20px;
+            box-sizing: border-box;
+            border-top: 2px solid var(--accent-yellow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
         }
 
-        .order-btn {
-            background: #ffb703;
+        .cart-info { font-weight: bold; }
+        .cart-info span { color: var(--accent-yellow); font-size: 1.2rem; }
+
+        .order-submit {
+            background: var(--accent-yellow);
             color: #000;
-            padding: 12px 60px;
-            border-radius: 50px;
+            padding: 12px 30px;
+            border-radius: 10px;
             font-weight: 900;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3);
+            border: none;
+            font-size: 1rem;
         }
 
-        /* Footer */
-        .footer {
+        /* Order Animation Overlay */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 40px 20px 100px;
-            font-size: 0.8rem;
-            color: #555;
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>UNLIMITED FAST FOOD</h1>
-        <p>The Infinite Feast Experience</p>
+        <h1>INFINITE KIOSK</h1>
+        <p style="margin:0; font-size: 0.8rem; color: #ffb703;">ALL-YOU-CAN-ORDER</p>
     </div>
 
-    <div class="container">
-        <div class="unlimited-badge">∞ ALL YOU CAN EAT</div>
-
-        <div class="section-title">Master Burgers</div>
-        <div class="menu-item">
-            <h3>Double Beef Smash Burger</h3>
-            <p>Two hand-smashed patties, melted sharp cheddar, and secret house sauce.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Bacon Smokehouse King</h3>
-            <p>Thick-cut smoked bacon, crispy onions, and tangy hickory BBQ sauce.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Spicy Nashville Hot Chicken</h3>
-            <p>Deep-fried chicken breast, cayenne glaze, and cool vinegar slaw.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Truffle Mushroom Swiss</h3>
-            <p>Sautéed forest mushrooms with premium truffle aioli and Swiss cheese.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>The Mega Jalapeño Fire</h3>
-            <p>Triple-stacked patties with roasted jalapeños and spicy pepper jack.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-
-        <div class="section-title">Legendary Sides</div>
-        <div class="menu-item">
-            <h3>Cajun Dynamite Fries</h3>
-            <p>Thick-cut fries tossed in our signature spicy Cajun spice blend.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Loaded Cheese & Bacon Tots</h3>
-            <p>Crispy tater tots smothered in warm liquid gold cheese and bacon bits.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Mozzarella Volcano Balls</h3>
-            <p>Breaded cheese spheres with an explosive molten center.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Colossal Onion Rings</h3>
-            <p>Beer-battened jumbo sweet onions served with ranch dip.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-
-        <div class="section-title">Pizza & Hotdogs</div>
-        <div class="menu-item">
-            <h3>New York Chili Cheese Dog</h3>
-            <p>Snap-casing beef frank topped with slow-cooked beef chili.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Ultimate Pepperoni Slice</h3>
-            <p>Thin-crust pizza loaded with triple-layered pepperoni curls.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Buffalo Chicken Flatbread</h3>
-            <p>Pulled chicken, buffalo sauce, and blue cheese crumbles.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-
-        <div class="section-title">Shakes & Sweets</div>
-        <div class="menu-item">
-            <h3>Salted Caramel Pretzel Shake</h3>
-            <p>Creamy vanilla soft serve with caramel swirls and sea salt pretzels.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Double Chocolate Fudge Brownie</h3>
-            <p>Warm chocolate brownie chunks mixed into a rich cocoa shake.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-        <div class="menu-item">
-            <h3>Endless Soda Fountain</h3>
-            <p>Unlimited refills of all premium carbonated beverages.</p>
-            <span class="price-tag">UNLIMITED</span>
-        </div>
-
+    <div class="categories">
+        <button class="cat-btn active">Burgers</button>
+        <button class="cat-btn">Sides</button>
+        <button class="cat-btn">Pizza</button>
+        <button class="cat-btn">Drinks</button>
     </div>
 
-    <div class="order-bar">
-        <a href="#" class="order-btn">START EATING</a>
+    <div class="container" id="menu-list">
+        </div>
+
+    <div class="cart-bar">
+        <div class="cart-info">
+            Items: <span id="item-count">0</span><br>
+            Total: <span id="total-price">$0.00</span>
+        </div>
+        <button class="order-submit" onclick="submitOrder()">PLACE ORDER</button>
     </div>
 
-    <div class="footer">
-        <p>Warning: All menu items are <b>Unlimited</b>.</p>
-        <p>Please order only what you can eat. No wastage allowed.</p>
-        <p>© 2026 INFINITE FAST FOOD CO.</p>
+    <div id="overlay">
+        <div>
+            <h1 style="color: var(--accent-yellow);">ORDER PLACED!</h1>
+            <p>Your infinite feast is being prepared...</p>
+            <button onclick="closeOverlay()" style="background:none; border: 1px solid #fff; color:#fff; padding:10px 20px; border-radius:5px;">Close</button>
+        </div>
     </div>
 
+    <script>
+        const menuItems = [
+            { name: "Double Beef Smash", desc: "Two beefy patties & cheese", price: 0 },
+            { name: "Spicy Nashville Chicken", desc: "Nashville hot glaze & slaw", price: 0 },
+            { name: "Bacon Smokehouse King", desc: "Thick bacon & BBQ sauce", price: 0 },
+            { name: "Cajun Dynamite Fries", desc: "Spicy Cajun spice blend", price: 0 },
+            { name: "Mozzarella Volcano", desc: "Molten cheese center balls", price: 0 },
+            { name: "Ultimate Pepperoni", desc: "Triple layered pepperoni", price: 0 },
+            { name: "Real Vanilla Shake", desc: "Premium vanilla bean shake", price: 0 }
+        ];
+
+        let count = 0;
+
+        function renderMenu() {
+            const list = document.getElementById('menu-list');
+            list.innerHTML = menuItems.map(item => `
+                <div class="menu-card">
+                    <div class="info">
+                        <h3>${item.name}</h3>
+                        <p>${item.desc}</p>
+                    </div>
+                    <button class="add-btn" onclick="addToCart()">+</button>
+                </div>
+            `).join('');
+        }
+
+        function addToCart() {
+            count++;
+            document.getElementById('item-count').innerText = count;
+            // Total price stays $0 because it's unlimited!
+        }
+
+        function submitOrder() {
+            if(count === 0) {
+                alert("Please add at least one item!");
+                return;
+            }
+            document.getElementById('overlay').style.display = 'flex';
+        }
+
+        function closeOverlay() {
+            document.getElementById('overlay').style.display = 'none';
+            count = 0;
+            document.getElementById('item-count').innerText = count;
+        }
+
+        renderMenu();
+    </script>
 </body>
 </html>
